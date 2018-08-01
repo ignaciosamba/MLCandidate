@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MLCandidate</string>
+    <string name="location_filter">Select Location</string>
+</resources>
