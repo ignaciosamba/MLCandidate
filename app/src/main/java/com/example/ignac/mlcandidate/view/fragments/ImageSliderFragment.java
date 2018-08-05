@@ -23,10 +23,13 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ImageSliderFragment extends Fragment {
+public class ImageSliderFragment extends android.support.v4.app.Fragment {
 
     private int currentPage = 0;
     private int NUM_PAGES = 0;
+
+    private ArrayList<Picture> mArrayImages;
+    private CirclePageIndicator mIndicator;
 
     @BindView(R.id.viewPager)
     ViewPager mViewPager;
@@ -36,51 +39,63 @@ public class ImageSliderFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.image_slider_fragment, container, false);
         ButterKnife.bind(this, view);
+        mIndicator =  view.findViewById(R.id.indicator);
         return view;
     }
 
-
-    private List<Picture> getImageList(){
-        List<Picture> imageList = new ArrayList<>();
-        return imageList;
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
-    private void initImageSlider(View view){
+
+    public void setArrayImages(ArrayList<Picture> pictures) {
+        mArrayImages = pictures;
+        if(mArrayImages != null) {
+            System.out.println("SAMBA LIST IS : " + mArrayImages.size());
+        }
+        initImageSlider();
+    }
+
+    private List<Picture> getImageList(){
+        return mArrayImages;
+    }
+
+    private void initImageSlider(){
 
         //Set the pager with an adapter
         mViewPager.setAdapter(new ImageSliderAdapter(ApplicationContext.getAppContext(), getImageList()));
 
-        CirclePageIndicator indicator =  view.findViewById(R.id.indicator);
 
-        indicator.setViewPager(mViewPager);
+        mIndicator.setViewPager(mViewPager);
 
         final float density = getResources().getDisplayMetrics().density;
 
         //Set circle indicator radius
-        indicator.setRadius(5 * density);
+        mIndicator.setRadius(5 * density);
 
         NUM_PAGES = getImageList().size();
 
         // Auto start of viewpager
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (currentPage == NUM_PAGES) {
-                    currentPage = 0;
-                }
-                mViewPager.setCurrentItem(currentPage++, true);
-            }
-        };
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 3000, 3000);
+//        final Handler handler = new Handler();
+//        final Runnable Update = new Runnable() {
+//            public void run() {
+//                if (currentPage == NUM_PAGES) {
+//                    currentPage = 0;
+//                }
+//                mViewPager.setCurrentItem(currentPage++, true);
+//            }
+//        };
+//        Timer swipeTimer = new Timer();
+//        swipeTimer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                handler.post(Update);
+//            }
+//        }, 3000, 3000);
 
         // Pager listener over indicator
-        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(int position) {

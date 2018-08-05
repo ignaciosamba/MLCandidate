@@ -18,12 +18,18 @@ import com.example.ignac.mlcandidate.presenter.ItemsPresenter;
 import com.example.ignac.mlcandidate.view.Adapter.ProductAdapterClickListener;
 import com.example.ignac.mlcandidate.view.Adapter.ProductItemAdapter;
 
+import static java.lang.String.valueOf;
+
 public class ProductSearchActivity extends AppCompatActivity implements IResultList {
 
     private final String SEARCH_PRODUCTS = "search_new_product";
     private final String PRODUCT_ID = "product_id";
+    private final String PRODUCT_TITLE = "product_title";
+    private final String PRODUCT_LINK = "product_link";
+    private final String PRODUCT_PRICE = "product_price";
 
     private TextView mTitleSearch;
+    private TextView mNotFoundProducts;
     private ProgressBar mProgressBar;
     private ItemsPresenter mItemsPresenter;
     private Results mResultsItem;
@@ -50,6 +56,7 @@ public class ProductSearchActivity extends AppCompatActivity implements IResultL
 
     private void initView() {
         mTitleSearch = findViewById(R.id.title_search_txt);
+        mNotFoundProducts = findViewById(R.id.not_found_product);
         mProgressBar = findViewById(R.id.searchProgressBar);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -63,8 +70,14 @@ public class ProductSearchActivity extends AppCompatActivity implements IResultL
     @Override
     public void onResultListReady(Results results) {
         System.out.println("SAMBA onResultListReady ----->" + results.getResultList().size());
-        mProductItemAdapter.setResultList(results);
+        if (results.getResultList().size() != 0) {
+            mProductItemAdapter.setResultList(results);
+        } else {
+            System.out.println("SAMBA NOT FOUND NOTHING");
+            mNotFoundProducts.setVisibility(View.VISIBLE);
+        }
         mProgressBar.setVisibility(View.INVISIBLE);
+
     }
 
     /**
@@ -78,6 +91,10 @@ public class ProductSearchActivity extends AppCompatActivity implements IResultL
                     Toast.LENGTH_LONG).show();
             Intent intent = new Intent(ProductSearchActivity.this, ProductDetailsActivity.class);
             intent.putExtra(PRODUCT_ID, product.getId());
+            intent.putExtra(PRODUCT_TITLE, product.getTitle());
+            intent.putExtra(PRODUCT_LINK, product.getPermalink());
+            System.out.println("SAMBA PRICE IS::::::::::::::::::::::::::::::::::: " + valueOf(product.getPrice()));
+            intent.putExtra(PRODUCT_PRICE, valueOf(product.getPrice()));
             startActivity(intent);
         }
     };

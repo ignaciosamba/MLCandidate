@@ -2,6 +2,7 @@ package com.example.ignac.mlcandidate.utils;
 
 import com.example.ignac.mlcandidate.model.Description;
 import com.example.ignac.mlcandidate.model.ItemDetails;
+import com.example.ignac.mlcandidate.model.Picture;
 import com.example.ignac.mlcandidate.model.Result;
 import com.example.ignac.mlcandidate.model.Results;
 
@@ -21,5 +22,8 @@ public interface RestClient {
 
     @GET("/items/{item_id}/description")
     Call<Description> getDetails(@Path("item_id") String item_id);
+
+    @GET("/items/{item_id}")
+    Call<ItemDetails> getPictureDetails(@Path("item_id") String item_id);
 
 }

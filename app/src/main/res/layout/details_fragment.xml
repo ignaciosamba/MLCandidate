@@ -1,22 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/detail_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        android:layout_centerHorizontal="true"
-        android:text="TITLE"/>
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:background="@color/grey_300">
 
-    <TextView
-        android:id="@+id/detail_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:text="HERE COMES THE DETAIL OF THE PRODUCT"
-        android:textColor="@color/black"
-        android:textSize="12sp" />
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:layout_centerHorizontal="true"
+            android:text="TITLE"/>
+
+        <TextView
+            android:id="@+id/detail_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="49dp"
+            android:text="$$$$$$"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_alignParentLeft="true" />
+
+        <TextView
+            android:id="@+id/detail_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/detail_price"
+            android:text="HERE COMES THE DETAIL OF THE PRODUCT"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_alignParentLeft="true" />
+
+            <Button
+                android:id="@+id/btn_open_ml"
+                android:layout_width="wrap_content"
+                android:layout_height="37dp"
+                android:layout_below="@+id/detail_text"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/yellow_circle_button"
+                android:padding="10dp"
+                android:text="@string/open_in_mercado_libre"
+                android:textColor="#ffffff" />
+
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

@@ -28,9 +28,10 @@ public class ImageSliderAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup collection, int position) {
+        System.out.println("SAMBA INSTANTIATEITEM");
         ViewGroup imageLayout = (ViewGroup) inflater.inflate(R.layout.slider_image, collection, false);
         mImageView = imageLayout.findViewById(R.id.imageView);
-        NetworkUtils.LoadImage(imageList.get(position).getId(), mImageView);
+        NetworkUtils.LoadImage(imageList.get(position).getUrl(), mImageView);
         collection.addView(imageLayout);
         return imageLayout;
     }
@@ -42,7 +43,11 @@ public class ImageSliderAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return imageList.size();
+        if (imageList != null) {
+            return imageList.size();
+        } else {
+            return 0;
+        }
     }
 
     @Override

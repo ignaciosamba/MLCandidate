@@ -7,5 +7,6 @@
     <string name="select_filter_condition">Elige la condición:</string>
     <string name="condition_used">Usado</string>
     <string name="condition_new">Nuevo</string>
-
+    <string name="open_in_mercado_libre">Comprar en Mercado Libre</string>
+    <string name="chooser_title">Open in:</string>
 </resources>
