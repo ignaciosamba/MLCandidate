@@ -57,6 +57,7 @@ public class ProductSearchActivity extends AppCompatActivity implements IResultL
     private void initView() {
         mTitleSearch = findViewById(R.id.title_search_txt);
         mNotFoundProducts = findViewById(R.id.not_found_product);
+        mNotFoundProducts.setVisibility(View.INVISIBLE);
         mProgressBar = findViewById(R.id.searchProgressBar);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);

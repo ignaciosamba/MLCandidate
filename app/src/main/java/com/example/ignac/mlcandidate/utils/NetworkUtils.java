@@ -32,7 +32,9 @@ public class NetworkUtils {
     }
 
     static public void LoadImage(String pathToImage, ImageView imageView) {
-        Picasso.with(ApplicationContext.getAppContext()).load(pathToImage).into(imageView);
+        if (pathToImage != null && !pathToImage.isEmpty()) {
+            Picasso.with(ApplicationContext.getAppContext()).load(pathToImage).into(imageView);
+        }
     }
 
 }
