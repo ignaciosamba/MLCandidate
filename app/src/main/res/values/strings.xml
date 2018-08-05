@@ -2,4 +2,10 @@
     <string name="app_name">MLCandidate</string>
     <string name="location_filter">Select Location</string>
     <string name="search">Buscar</string>
+    <string name="tip_to_search_tilte">Buscá Online lo que quieras</string>
+    <string name="hint_to_search">Escribe aqui el producto</string>
+    <string name="select_filter_condition">Elige la condición:</string>
+    <string name="condition_used">Usado</string>
+    <string name="condition_new">Nuevo</string>
+
 </resources>
