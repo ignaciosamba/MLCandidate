@@ -31,7 +31,6 @@ public class DetailsItemFragment extends android.support.v4.app.Fragment {
         mOpenOnMLButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("SAMBA ONCLICK EN EL FRAAAAAAAAAAAAAAAAAAAAAAGMENT: " + mUrlToOpenML);
                 Uri webpage = Uri.parse(mUrlToOpenML);
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(webpage);

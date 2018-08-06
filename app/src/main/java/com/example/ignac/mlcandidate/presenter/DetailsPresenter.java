@@ -26,7 +26,6 @@ public class DetailsPresenter {
 
     public void getDetailsItem (String product_id) {
         Call<Description> call = mResultList.getRestClient(ML_BASE_DETAIL_ITEM).getDetails(product_id);
-        System.out.println("SAMBA URL IS: " + call.request().isHttps());
         call.enqueue(new Callback<Description>() {
             @Override
             public void onResponse(Call<Description> call, Response<Description> response) {
@@ -34,22 +33,17 @@ public class DetailsPresenter {
                     case 200:
                         Description data = new Description();
                         data = response.body();
-                        System.out.println("SAMBA SEARCH" + data.getPlainText() + " ");
-
                         mIDetailItem.onDetailItemReady(data);
                         break;
                     case 401:
-                        System.out.println("SAMBA FAIL 401");
                         break;
                     default:
-                        System.out.println("SAMBA FAIL default");
                         break;
                 }
             }
 
             @Override
             public void onFailure(Call<Description> call, Throwable t) {
-                System.out.println("SAMBA ONFAILURE");
                 Log.e("error", t.toString());
             }
         });

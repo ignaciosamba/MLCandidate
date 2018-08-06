@@ -10,11 +10,16 @@ public class Results {
 
     public Results() {
         resultList = new ArrayList<>();
+        filtersList = new ArrayList<>();
     }
 
     @SerializedName("results")
     @Expose
     private List<Result> resultList;
+
+    @SerializedName("available_filters")
+    @Expose
+    private List<AvailableFilter> filtersList;
 
     public List<Result> getResultList() {
         return resultList;
@@ -22,5 +27,13 @@ public class Results {
 
     public void setResultList(List<Result> resultList) {
         this.resultList = resultList;
+    }
+
+    public List<AvailableFilter> getFiltersList() {
+        return filtersList;
+    }
+
+    public void setFiltersList(List<AvailableFilter> filtersList) {
+        this.filtersList = filtersList;
     }
 }

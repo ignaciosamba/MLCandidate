@@ -29,10 +29,7 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
     }
 
     public void setResultList(Results results) {
-        System.out.println("SAMBA SETRESULTLIST");
         mResultList = results.getResultList();
-        System.out.println("SAMBA SETRESULTLIST AFTER EL GETRESULTLIST");
-
         notifyDataSetChanged();
     }
 
@@ -45,7 +42,6 @@ public class ProductItemAdapter extends RecyclerView.Adapter<ProductItemAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewItemHolder holder, final int position) {
-        System.out.println("SAMBA ONBINDVIEWHOLDER");
         holder.mProductTitle.setText(mResultList.get(position).getTitle());
         String price = "$ " + valueOf(mResultList.get(position).getPrice());
         holder.mProductPrice.setText(price);

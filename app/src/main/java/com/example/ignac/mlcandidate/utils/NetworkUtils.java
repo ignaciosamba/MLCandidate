@@ -15,7 +15,6 @@ public class NetworkUtils {
 
     private Retrofit mRetrofit = null;
 
-
     public RestClient getRestClient(String baseQuery) {
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)

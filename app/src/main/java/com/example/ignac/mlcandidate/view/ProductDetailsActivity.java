@@ -29,10 +29,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements IDetail
     private String mProductLink;
     private String mProductPrice;
 
+    private DetailsItemFragment mDetailsItemFragment;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail_activity);
+        mDetailsItemFragment = (DetailsItemFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment);
+
     }
 
     @Override
@@ -41,25 +45,23 @@ public class ProductDetailsActivity extends AppCompatActivity implements IDetail
         mDetailsPresenter = new DetailsPresenter(this);
         mPicturePresenter = new PicturePresenter(this);
         Intent intent = getIntent();
-        if (intent.hasExtra(PRODUCT_ID)) {
+        if (intent.hasExtra(PRODUCT_ID) || intent.hasExtra(PRODUCT_LINK) ||
+                intent.hasExtra(PRODUCT_PRICE)) {
             //Do the search for details.
-            System.out.println("SAMBA ONRESUME DETAIL HAS PRODUCT ID: " + intent.getStringExtra(PRODUCT_ID));
             mProductTitle = intent.getStringExtra(PRODUCT_TITLE);
             mProductLink = intent.getStringExtra(PRODUCT_LINK);
             mProductPrice = intent.getStringExtra(PRODUCT_PRICE);
             mDetailsPresenter.getDetailsItem(intent.getStringExtra(PRODUCT_ID));
             mPicturePresenter.getPicturesItem(intent.getStringExtra(PRODUCT_ID));
         }
+        mDetailsItemFragment.setTitle(mProductTitle);
+        mDetailsItemFragment.setUrl(mProductLink);
+        mDetailsItemFragment.setPrice(mProductPrice);
     }
 
     @Override
     public void onDetailItemReady(Description description) {
-        System.out.println("SAMBA DESCRIPTION __________________ : " + description.getPlainText());
-        DetailsItemFragment detailsItemFragment = (DetailsItemFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment);
-        detailsItemFragment.setDescription(description.getPlainText());
-        detailsItemFragment.setTitle(mProductTitle);
-        detailsItemFragment.setUrl(mProductLink);
-        detailsItemFragment.setPrice(mProductPrice);
+        mDetailsItemFragment.setDescription(description.getPlainText());
     }
 
     @Override

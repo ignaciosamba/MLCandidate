@@ -51,9 +51,6 @@ public class ImageSliderFragment extends android.support.v4.app.Fragment {
 
     public void setArrayImages(ArrayList<Picture> pictures) {
         mArrayImages = pictures;
-        if(mArrayImages != null) {
-            System.out.println("SAMBA LIST IS : " + mArrayImages.size());
-        }
         initImageSlider();
     }
 

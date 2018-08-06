@@ -26,11 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mProductSearch;
     private Button mSearchBtn;
-//    private ItemsPresenter mItemsPresenter;
-//    private Results mResultsItem;
-//    private RecyclerView mProductListRecycler;
-//    private ProductItemAdapter mProductItemAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("SAMBA ON CLICK");
                 String productToSearch = mProductSearch.getText().toString();
-                System.out.println("SAMBA PRODUCT IS: " + productToSearch);
                 Intent searchProduct = new Intent(MainActivity.this, ProductSearchActivity.class);
                 searchProduct.putExtra(SEARCH_PRODUCTS, productToSearch);
                 startActivity(searchProduct);

@@ -29,7 +29,7 @@ public class PicturePresenter {
 
     public void getPicturesItem (String product_id) {
         Call<ItemDetails> call = mResultList.getRestClient(ML_BASE_DETAIL_ITEM).getPictureDetails(product_id);
-        System.out.println("SAMBA URL IS: " + call.request().isHttps());
+
         call.enqueue(new Callback<ItemDetails>() {
             @Override
             public void onResponse(Call<ItemDetails> call, Response<ItemDetails> response) {
@@ -37,21 +37,17 @@ public class PicturePresenter {
                     case 200:
                         ItemDetails data = new ItemDetails();
                         data = response.body();
-                        System.out.println("SAMBA SEARCH" + data.getPictures().size() + " ");
                         mIPicturesItem.onPictureItemReady(data);
                         break;
                     case 401:
-                        System.out.println("SAMBA FAIL 401");
                         break;
                     default:
-                        System.out.println("SAMBA FAIL default");
                         break;
                 }
             }
 
             @Override
             public void onFailure(Call<ItemDetails> call, Throwable t) {
-                System.out.println("SAMBA ONFAILURE");
                 Log.e("error", t.toString());
             }
         });

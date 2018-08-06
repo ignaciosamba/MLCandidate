@@ -27,9 +27,9 @@ public class ItemsPresenter {
         }
     }
 
-    public void getListRestultItem (String product) {
+    public void getListRestultItem (String state_id, String condition_id, String product) {
         Call<Results> call = mResultList.getRestClient(ML_BASE_QUERY)
-                .getData("TUxBUENPUmFkZGIw","used", product);
+                .getData(state_id, condition_id, product);
 
         call.enqueue(new Callback<Results>() {
             @Override
@@ -38,23 +38,20 @@ public class ItemsPresenter {
                     case 200:
                         Results data = new Results();
                         data.setResultList(response.body().getResultList());
+                        data.setFiltersList(response.body().getFiltersList());
                         for (Result item : data.getResultList()){
-                            System.out.println("SAMBA SEARCH" + item.getTitle() + " ");
                         }
                         mIResultList.onResultListReady(data);
                         break;
                     case 401:
-                        System.out.println("SAMBA FAIL 401");
                         break;
                     default:
-                        System.out.println("SAMBA FAIL default");
                         break;
                 }
             }
 
             @Override
             public void onFailure(Call<Results> call, Throwable t) {
-                System.out.println("SAMBA ONFAILURE");
                 Log.e("error", t.toString());
             }
         });

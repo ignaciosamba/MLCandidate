@@ -4,14 +4,29 @@
     android:layout_height="match_parent"
     android:background="@color/blue_grey_200">
 
-    <TextView
-        android:id="@+id/title_search_txt"
+    <LinearLayout
+        android:id="@+id/header_search"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:textSize="30dp"
-        android:text="TITLE SEARCH"
+        android:layout_height="41dp"
         android:background="@color/yellow_700"
-        android:layout_centerHorizontal="true"/>
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/title_search_txt"
+            android:layout_width="305dp"
+            android:layout_height="40dp"
+            android:background="@color/yellow_700"
+            android:text="TITLE SEARCH"
+            android:textAlignment="center"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/filter_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/baseline_filter_list_black_18dp"
+            android:visibility="invisible"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/not_found_product"
@@ -27,7 +42,7 @@
         android:id="@+id/productList_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/title_search_txt"
+        android:layout_below="@+id/header_search"
         android:scrollbars="vertical">
     </android.support.v7.widget.RecyclerView>
 
