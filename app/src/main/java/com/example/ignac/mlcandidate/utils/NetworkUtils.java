@@ -15,6 +15,12 @@ public class NetworkUtils {
 
     private Retrofit mRetrofit = null;
 
+    /**
+     *  Method to get the RestClient and perform a search.
+     *
+     * @param       baseQuery  String that will be use as a base url.
+     * @return      RestClient
+     */
     public RestClient getRestClient(String baseQuery) {
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
@@ -30,6 +36,13 @@ public class NetworkUtils {
         return restClient;
     }
 
+    /**
+     *  Method to retrieve a image and show it into a ImageView using Picasso.
+     *
+     * @param       pathToImage  String that will be use as a path to url that have the image.
+     * @param       imageView  ImageView that will be use to show the image.
+     * @return      RestClient
+     */
     static public void LoadImage(String pathToImage, ImageView imageView) {
         if (pathToImage != null && !pathToImage.isEmpty()) {
             Picasso.with(ApplicationContext.getAppContext()).load(pathToImage).into(imageView);

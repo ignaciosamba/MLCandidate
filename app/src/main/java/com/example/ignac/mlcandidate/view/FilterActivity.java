@@ -4,40 +4,71 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.example.ignac.mlcandidate.ApplicationContext;
 import com.example.ignac.mlcandidate.R;
 import com.example.ignac.mlcandidate.model.AvailableFilter;
 import com.example.ignac.mlcandidate.model.Results;
 import com.example.ignac.mlcandidate.presenter.ItemsPresenter;
+import com.example.ignac.mlcandidate.utils.LocationFilterList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FilterActivity extends AppCompatActivity implements IResultList {
+public class FilterActivity extends AppCompatActivity {
 
+    /**
+     * String to retrieve for the intent and send by an intent the product searched.
+     */
     private final String SEARCH_PRODUCTS = "search_new_product";
+    /**
+     * String to send by intent the condition filter.
+     */
     private final String CONDITION_SEARCH = "condition_search";
+    /**
+     * String to  send by intent the location filter.
+     */
     private final String LOCATION_SEARCH = "location_search";
 
-    private CheckBox mUsed;
-    private CheckBox mNew;
+    /**
+     * Spinner to select the location filter.
+     */
     private Spinner mSpinerLocation;
+    /**
+     * Button to apply filter.
+     */
     private Button mApplyFilter;
 
-    private ItemsPresenter mItemsPresenter;
+    /**
+     * Product being searched.
+     */
     private String mProduct;
+    /**
+     * String to send used in condition filter.
+     */
     private String mUsedCheck = null;
+    /**
+     * String to send new in condition filter.
+     */
     private String mNewCheck = null;
+    /**
+     * String to the location id in location filter.
+     */
     private String mLocation_id = null;
-    private Map<String, String> mLocations;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +84,6 @@ public class FilterActivity extends AppCompatActivity implements IResultList {
         if (intent.hasExtra(SEARCH_PRODUCTS)){
             mProduct = intent.getStringExtra(SEARCH_PRODUCTS);
         }
-        mItemsPresenter = new ItemsPresenter(this);
-        mItemsPresenter.getListRestultItem(null, null, mProduct);
         SharedPreferences prefs = getPreferences(MODE_PRIVATE);
         if (prefs != null) {
             String restoredText = prefs.getString("Location_id", null);
@@ -62,12 +91,12 @@ public class FilterActivity extends AppCompatActivity implements IResultList {
                 mLocation_id = restoredText;
             }
         }
+        setAdapterToSpinner();
     }
 
     private void initView() {
-        mUsed = findViewById( R.id.checkbox_used);
-        mNew = findViewById(R.id.checkbox_new);
         mSpinerLocation = findViewById(R.id.spinner_location);
+        mSpinerLocation.setPrompt("Seleccionar");
         mApplyFilter = findViewById(R.id.btn_apply_filter);
         mApplyFilter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +125,7 @@ public class FilterActivity extends AppCompatActivity implements IResultList {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                mLocation_id = null;
             }
         });
     }
@@ -116,6 +145,12 @@ public class FilterActivity extends AppCompatActivity implements IResultList {
         finish();
     }
 
+    /**
+     *  Method onClick to know which checkbox is selected.
+     *
+     * @param    view View.
+     * @return   void
+     */
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
 
@@ -137,35 +172,46 @@ public class FilterActivity extends AppCompatActivity implements IResultList {
         }
     }
 
-
+    /**
+     *  Method to populate the arrayList used in the spinner.
+     *
+     * @return   The ArrayList with all the Locations.
+     */
     private ArrayList<String> populateArrayForSpinner () {
-        ArrayList<String> locations = new ArrayList<>(mLocations.values());
+        ArrayList<String> locations = new ArrayList<>(LocationFilterList.getInstance().getLocationsFilter().values());
         return locations;
     }
 
+    /**
+     *  Method to get the locations ids array of the LocationFilterList.
+     *
+     * @return  The ArrayList with all the Locations id.
+     */
     private ArrayList<String> getIDArrayForSpinner () {
-        ArrayList<String> locations_id = new ArrayList<>(mLocations.keySet());
+        ArrayList<String> locations_id = new ArrayList<>(LocationFilterList.getInstance()
+                .getLocationsFilter().keySet());
         return locations_id;
     }
-
+    /**
+     *  Method to get the location id array of the spinner.
+     *
+     * @return  The String with the Locations id.
+     */
     private String getLocationId (int position){
         return  getIDArrayForSpinner().get(position);
     }
 
-    @Override
-    public void onResultListReady(Results results) {
-        mLocations = new HashMap<>();
-        for (AvailableFilter filter : results.getFiltersList()){
-            if (filter.getId().equals("state")){
-                for (int i = 0 ; i<filter.getValues().size(); i++)
-                mLocations.put(filter.getValues().get(i).getId(),
-                        filter.getValues().get(i).getName());
-            }
-        }
+    /**
+     *  Method to set the location names to the spinner.
+     *
+     * @return  void
+     */
+    private void setAdapterToSpinner() {
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                R.layout.support_simple_spinner_dropdown_item, populateArrayForSpinner());
+                R.layout.spinner_center_text, populateArrayForSpinner());
         mSpinerLocation.setAdapter(dataAdapter);
-        int position = dataAdapter.getPosition(mLocations.get(mLocation_id));
+        int position = dataAdapter.getPosition(LocationFilterList.getInstance().getLocationsFilter()
+                .get(mLocation_id));
         if (position == -1) {
             mSpinerLocation.setSelection(position + 1);
         } else {

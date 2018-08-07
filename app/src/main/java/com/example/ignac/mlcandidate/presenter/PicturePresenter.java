@@ -15,9 +15,19 @@ import retrofit2.Response;
 
 public class PicturePresenter {
 
+    private final String LOG_TAG = this.getClass().getName();
+    /**
+     * String used as base url for search the products images.
+     */
     private static final String ML_BASE_DETAIL_ITEM = "https://api.mercadolibre.com/";
 
+    /**
+     * NetworkUtils to call restClient.
+     */
     private NetworkUtils mResultList;
+    /**
+     * Interface that is used to callback when the data retrieved of the products images.
+     */
     private IPicturesItem mIPicturesItem;
 
     public PicturePresenter(IPicturesItem iPicturesItem) {
@@ -27,6 +37,12 @@ public class PicturePresenter {
         }
     }
 
+    /**
+     *  Method to retrieve the product image.
+     *
+     * @param       product_id  String that will be use to get the data of the product image.
+     * @return      void
+     */
     public void getPicturesItem (String product_id) {
         Call<ItemDetails> call = mResultList.getRestClient(ML_BASE_DETAIL_ITEM).getPictureDetails(product_id);
 
@@ -39,7 +55,8 @@ public class PicturePresenter {
                         data = response.body();
                         mIPicturesItem.onPictureItemReady(data);
                         break;
-                    case 401:
+                    case 404:
+                        Log.e(LOG_TAG, "ERROR, INFORMATION NOT FOUND");
                         break;
                     default:
                         break;

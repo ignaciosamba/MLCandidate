@@ -3,7 +3,7 @@ package com.example.ignac.mlcandidate.view;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
 import com.example.ignac.mlcandidate.R;
@@ -11,9 +11,15 @@ import com.example.ignac.mlcandidate.R;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Activity_Splash extends BaseActivity{
+/**
+ * This Splash Activity is only used to display a nice screen before the user can interact with the app.
+ */
+public class Activity_Splash extends AppCompatActivity {
 
-    private static int TIME_TO_SPLASH = 3000;
+    /**
+     * Time that the splash will be displayed.
+     */
+    private static int TIME_TO_SPLASH = 1500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

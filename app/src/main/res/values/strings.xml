@@ -13,4 +13,7 @@
     <string name="condition_used">Usado</string>
     <string name="condition_new">Nuevo</string>
     <string name="filter_apply">Aplicar Filtros</string>
+    <string name="price_grafic">$$$$</string>
+    <string name="title_cardview">Title</string>
+    <string name="image_cardview">Image_cardview</string>
 </resources>

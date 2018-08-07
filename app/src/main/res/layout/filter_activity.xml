@@ -97,9 +97,9 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
-        android:background="@color/yellow_600"
-        android:popupBackground="@color/yellow_600"
-        android:prompt="@string/filter_select_ubication"
+        android:spinnerMode="dialog"
+        android:textAlignment="center"
+        android:background="@drawable/spinner_with_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3">

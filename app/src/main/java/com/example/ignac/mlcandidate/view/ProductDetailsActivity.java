@@ -18,17 +18,22 @@ import java.util.ArrayList;
 
 public class ProductDetailsActivity extends AppCompatActivity implements IDetailItem, IPicturesItem{
 
-    private final String PRODUCT_ID = "product_id";
-    private final String PRODUCT_TITLE = "product_title";
-    private final String PRODUCT_LINK = "product_link";
-    private final String PRODUCT_PRICE = "product_price";
-
-    private DetailsPresenter mDetailsPresenter;
-    private PicturePresenter mPicturePresenter;
+    /**
+     * String of product Title.
+     */
     private String mProductTitle;
+    /**
+     * String of product Link.
+     */
     private String mProductLink;
+    /**
+     * String of product Price.
+     */
     private String mProductPrice;
 
+    /**
+     * DetailsItemFragment uses to display the product details.
+     */
     private DetailsItemFragment mDetailsItemFragment;
 
     @Override
@@ -36,18 +41,21 @@ public class ProductDetailsActivity extends AppCompatActivity implements IDetail
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_detail_activity);
         mDetailsItemFragment = (DetailsItemFragment) getSupportFragmentManager().findFragmentById(R.id.detail_fragment);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mDetailsPresenter = new DetailsPresenter(this);
-        mPicturePresenter = new PicturePresenter(this);
+        DetailsPresenter mDetailsPresenter = new DetailsPresenter(this);
+        PicturePresenter mPicturePresenter = new PicturePresenter(this);
         Intent intent = getIntent();
+        String PRODUCT_ID = "product_id";
+        String PRODUCT_LINK = "product_link";
+        String PRODUCT_PRICE = "product_price";
         if (intent.hasExtra(PRODUCT_ID) || intent.hasExtra(PRODUCT_LINK) ||
                 intent.hasExtra(PRODUCT_PRICE)) {
             //Do the search for details.
+            String PRODUCT_TITLE = "product_title";
             mProductTitle = intent.getStringExtra(PRODUCT_TITLE);
             mProductLink = intent.getStringExtra(PRODUCT_LINK);
             mProductPrice = intent.getStringExtra(PRODUCT_PRICE);

@@ -15,9 +15,19 @@ import retrofit2.Response;
 
 public class ItemsPresenter {
 
+    private final String LOG_TAG = this.getClass().getName();
+    /**
+     * String used as base url for search the products list.
+     */
     private static final String ML_BASE_QUERY= "https://api.mercadolibre.com/sites/MLA/";
 
+    /**
+     * NetworkUtils to call restClient.
+     */
     private NetworkUtils mResultList;
+    /**
+     * Interface that is used to callback when the data retrieved of the products list.
+     */
     private IResultList mIResultList;
 
     public ItemsPresenter(IResultList iResultList) {
@@ -27,6 +37,14 @@ public class ItemsPresenter {
         }
     }
 
+    /**
+     *  Method to retrieve the list of products searched and the filters availables.
+     *
+     * @param       state_id  String that will be use to filter by location.
+     * @param       condition_id String that will be use to filter by condition.
+     * @param       product String that will be use to retrieve the product list.
+     * @return      void
+     */
     public void getListRestultItem (String state_id, String condition_id, String product) {
         Call<Results> call = mResultList.getRestClient(ML_BASE_QUERY)
                 .getData(state_id, condition_id, product);
@@ -43,7 +61,8 @@ public class ItemsPresenter {
                         }
                         mIResultList.onResultListReady(data);
                         break;
-                    case 401:
+                    case 404:
+                        Log.e(LOG_TAG, "ERROR, INFORMATION NOT FOUND");
                         break;
                     default:
                         break;

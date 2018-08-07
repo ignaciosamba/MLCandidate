@@ -21,7 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
+    /**
+     * String to send by intent the product to search.
+     */
     private final String SEARCH_PRODUCTS = "search_new_product";
 
     private EditText mProductSearch;
