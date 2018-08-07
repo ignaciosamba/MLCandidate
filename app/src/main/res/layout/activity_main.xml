@@ -16,7 +16,6 @@
         android:text="@string/tip_to_search_tilte"
         android:textColor="@color/black"
         android:textSize="25sp"
-        android:imeOptions="actionSearch"
         app:layout_constraintBottom_toTopOf="@+id/search_txt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
