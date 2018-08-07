@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ignac.mlcandidate.R;
@@ -38,15 +41,29 @@ public class MainActivity extends AppCompatActivity {
 
     public void initView(){
         mProductSearch = findViewById(R.id.search_txt);
+        mProductSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    performSearch();
+                    return true;
+                }
+                return false;
+            }
+        });
         mSearchBtn = findViewById(R.id.search_btn);
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productToSearch = mProductSearch.getText().toString();
-                Intent searchProduct = new Intent(MainActivity.this, ProductSearchActivity.class);
-                searchProduct.putExtra(SEARCH_PRODUCTS, productToSearch);
-                startActivity(searchProduct);
+                performSearch();
             }
         });
+    }
+
+    private void performSearch() {
+        String productToSearch = mProductSearch.getText().toString();
+        Intent searchProduct = new Intent(MainActivity.this, ProductSearchActivity.class);
+        searchProduct.putExtra(SEARCH_PRODUCTS, productToSearch);
+        startActivity(searchProduct);
     }
 }
