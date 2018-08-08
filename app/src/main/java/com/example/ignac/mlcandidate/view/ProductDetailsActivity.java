@@ -76,6 +76,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements IDetail
     public void onPictureItemReady(ItemDetails itemDetails) {
         ImageSliderFragment imageSliderFragment = (ImageSliderFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.image_fragment);
-        imageSliderFragment.setArrayImages(new ArrayList<Picture>(itemDetails.getPictures()));
+        if (itemDetails != null) {
+            imageSliderFragment.setArrayImages(new ArrayList<Picture>(itemDetails.getPictures()));
+        }
     }
 }

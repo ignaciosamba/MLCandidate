@@ -17,6 +17,7 @@ public class DetailsItemFragment extends android.support.v4.app.Fragment {
 
 
     private TextView mTitle;
+    private TextView mNoDescription;
     private TextView mDescription;
     private TextView mPice;
     private Button mOpenOnMLButton;
@@ -44,9 +45,11 @@ public class DetailsItemFragment extends android.support.v4.app.Fragment {
 
     public void initView(View view) {
         mTitle = view.findViewById(R.id.detail_title);
+        mNoDescription = view.findViewById(R.id.detail_no_title);
         mDescription = view.findViewById(R.id.detail_text);
         mPice = view.findViewById(R.id.detail_price);
         mOpenOnMLButton = view.findViewById(R.id.btn_open_ml);
+        mOpenOnMLButton.setVisibility(View.GONE);
         mOpenOnMLButton.setVisibility(View.INVISIBLE);
     }
 
@@ -57,7 +60,12 @@ public class DetailsItemFragment extends android.support.v4.app.Fragment {
 
 
     public void setDescription(String description) {
-        mDescription.setText(description);
+        if (description != null || description.isEmpty()) {
+            mDescription.setText(description);
+        } else {
+            mNoDescription.setVisibility(View.VISIBLE);
+        }
+        mOpenOnMLButton.setVisibility(View.VISIBLE);
     }
 
     public void setTitle(String title) {

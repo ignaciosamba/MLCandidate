@@ -47,9 +47,10 @@ public class DetailsPresenter {
             public void onResponse(Call<Description> call, Response<Description> response) {
                 switch (response.code()) {
                     case 200:
-                        Description data = new Description();
-                        data = response.body();
-                        mIDetailItem.onDetailItemReady(data);
+                        Description data = response.body();
+                        if (data != null) {
+                            mIDetailItem.onDetailItemReady(data);
+                        }
                         break;
                     case 404:
                         Log.e(LOG_TAG, "ERROR, INFORMATION NOT FOUND");

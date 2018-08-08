@@ -51,9 +51,10 @@ public class PicturePresenter {
             public void onResponse(Call<ItemDetails> call, Response<ItemDetails> response) {
                 switch (response.code()) {
                     case 200:
-                        ItemDetails data = new ItemDetails();
-                        data = response.body();
-                        mIPicturesItem.onPictureItemReady(data);
+                        ItemDetails data = response.body();
+                        if (data != null) {
+                            mIPicturesItem.onPictureItemReady(data);
+                        }
                         break;
                     case 404:
                         Log.e(LOG_TAG, "ERROR, INFORMATION NOT FOUND");

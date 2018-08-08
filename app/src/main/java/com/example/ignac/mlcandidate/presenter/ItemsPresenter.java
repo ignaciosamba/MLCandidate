@@ -57,8 +57,6 @@ public class ItemsPresenter {
                         Results data = new Results();
                         data.setResultList(response.body().getResultList());
                         data.setFiltersList(response.body().getFiltersList());
-                        for (Result item : data.getResultList()){
-                        }
                         mIResultList.onResultListReady(data);
                         break;
                     case 404:
